@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data entry</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <link rel="stylesheet" href="/static/plants.css">
+</head>
+
+<body>
+    <div class="header">
+        <img src="/static/backgrounds/bz_logo_rgb.jpg" height="100" width="auto">
+    </div>
+
+    <div class="main">
+        <div class="container">
+            <h1>Plants of the Bush</h1>
+            <h2>
+                <i>{{ plant["scientific_name"] }}</i>
+                <br>
+                <small>{{ plant["common_name"] }}</small>
+            </h2>
+            <div class="gallery">
+              
+                {% set plant_images = plant["image"].split(",") %}
+                {% set num_images = plant_images|length %}
+                {% for image_url in plant_images %}
+                  <div class="mySlides">
+                    <div class="numbertext">{{ loop.index }} / {{ num_images }}</div>
+                        <img src="{{ image_url }}">
+                  </div>
+                {% endfor %}
+              
+               
+                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                <a class="next" onclick="plusSlides(1)">❯</a>
+                <div class="row">
+                  
+                  {% for image_url in plant_images %}
+                    {% set thumbnail = image_url.replace(".j", "t.j") %}
+                    {% set thumbnail2 = thumbnail.replace(".p", "t.p") %}
+                    <div class="column">
+                        <img class="demo cursor" src="{{ thumbnail2 }}" style="width:100%" onclick="currentSlide({{ loop.index }})">
+                    </div>
+                
+                  {% endfor %}
+                    
+                </div>
+            </div>
+            <!-- <img src="/static/maps/{{ location }}" height="300" width="auto" /> This is for maps-->
+            <p>{{ plant["description"] }}</p>
+            <!-- Ask if they have the right plant before allowing them to input data -->
+            <form action="/species" method="post">
+                <input type="hidden" value="{{ plant["plant_id"] }}" name="plant_id" />
+                <label>Location
+                  <select id="location" name="location" label="Location">
+                      {% for location in plant["location"].split(",") %}
+                          <option value="{{location}}">{{location}}</option>
+                      {% endfor %}
+                  </select>
+                </label>
+                <br>
+                <br>
+                <label>Flowering stage
+                  <select id="flowering stage" name="flowering_stage">
+                    <option value="Not flowering">Not flowering</option>
+                    <option value="Sepals closed">Sepals closed</option>
+                    <option value="Petals closed">Petals closed</option>
+                    <option value="Petals open">Petals open</option>
+                    <option value="Petals withered/dropped">Petals withered/dropped</option>
+                  </select>
+                </label>
+                <br>
+                <br>
+                <label>Number of inflorescences
+                  <select id="number of inflorescences" name="number_of_inflorescences">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="More than 5">More than 5</option>
+                  </select>
+                </label>
+                <br>
+                <br>
+                <label>Number of flowers
+                  <select id="number of flowers" name="number_of_flowers">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="More than 5">More than 5</option>
+                  </select>
+                </label>
+                <br>
+                <br>
+                <label>Fruiting stage
+                  <select id="fruiting stage" name="fruiting_stage">
+                    <option value="Something">Something</option>
+                    <option value="Something else">Something else</option>
+                  </select>
+                </label>
+                <br>
+                <br>
+                <label>Number of infructescences
+                  <select id="number of infructescences" name="number_of_infructescences">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="More than 5">More than 5</option>
+                  </select>
+                </label>
+                <br>
+                <br>
+                <label>Number of fruits
+                  <select id="number of fruits" name="number_of_fruits">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="More than 5">More than 5</option>
+                  </select>
+                </label>
+                <br>
+                <br>
+                <label>Comments
+                  <textarea id="comments" name="comments" placeholder="Any additional comments" rows=5 ></textarea>
+                </label>
+                <button class="success">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+          <p>&copy; Koninklijke Burgers' Zoo</p>
+        </div>
+    </div>
+
+<script type="text/javascript" src="/static/species.js"></script>
+
+</body>
+</html>
