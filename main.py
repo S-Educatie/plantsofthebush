@@ -16,23 +16,28 @@ users = {
   "volunteer": generate_password_hash(os.environ['VOLUNTEER_PW'])
 }
 
-@auth.verify_password  #Figure out how to do log-out
+
+@auth.verify_password
 def verify_password(username, password):
   if username in users and \
           check_password_hash(users.get(username), password):
     return username
 
+
 @app.route("/", methods=['GET'])
 def login_form():
   return render_template('plants.html')
 
+
 @app.route("/input", methods=['GET'])
 @auth.login_required
 def species_selection():
-  species_list = supabase.table("species").select("plant_id,scientific_name").order('plant_id').execute()
+  species_list = supabase.table("species").select(
+    "plant_id,scientific_name").order('plant_id').execute()
   species_list = species_list.data
   print(species_list)
   return render_template('input.html', species_list=species_list)
+
 
 @app.route("/input", methods=['POST'])
 @auth.login_required
@@ -41,6 +46,7 @@ def species_was_selected():
   print(request.form["species"])
   print("===================================")
   return redirect(url_for('species_data_entry'))
+
 
 @app.route("/species", methods=['POST'])
 @auth.login_required
@@ -68,19 +74,23 @@ def species_data_was_entered():
   print(data)
   return redirect(url_for('species_selection'))
 
+
 @app.route("/species/<plant_id>", methods=['GET'])
 @auth.login_required
 def species_data_entry(plant_id):
-  plant = supabase.table("species").select("*").eq("plant_id", plant_id).execute()
+  plant = supabase.table("species").select("*").eq("plant_id",
+                                                   plant_id).execute()
   plant = plant.data[0]
   print("=========")
   print(plant)
   print("=========")
   return render_template('species.html', plant=plant)
 
+
 #If I have time I can make a fun page for 404 errors with the noplants.html file
 @app.errorhandler(404)
 def noplants(error):
   return render_template('noplants.html'), 404
+
 
 app.run(host="0.0.0.0", debug=True)

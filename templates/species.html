@@ -12,7 +12,9 @@
 
 <body>
     <div class="header">
-        <img src="/static/backgrounds/bz_logo_rgb.jpg" height="100" width="auto">
+        <a href="https://plantsofthebush.s-educatie.repl.co/">
+            <img src="/static/backgrounds/bz_logo_rgb.jpg" height="100" width="auto">
+        </a>
     </div>
 
     <div class="main">
@@ -23,8 +25,7 @@
                 <br>
                 <small>{{ plant["common_name"] }}</small>
             </h2>
-            <div class="gallery">
-              
+            <div class="gallery">        
                 {% set plant_images = plant["image"].split(",") %}
                 {% set num_images = plant_images|length %}
                 {% for image_url in plant_images %}
@@ -34,31 +35,36 @@
                   </div>
                 {% endfor %}
               
-               
                 <a class="prev" onclick="plusSlides(-1)">❮</a>
                 <a class="next" onclick="plusSlides(1)">❯</a>
-                <div class="row">
-                  
-                  {% for image_url in plant_images %}
-                    {% set thumbnail = image_url.replace(".j", "t.j") %}
-                    {% set thumbnail2 = thumbnail.replace(".p", "t.p") %}
-                    <div class="column">
-                        <img class="demo cursor" src="{{ thumbnail2 }}" style="width:100%" onclick="currentSlide({{ loop.index }})">
-                    </div>
                 
-                  {% endfor %}
-                    
+                <div class="row"> 
+                    {% for image_url in plant_images %}
+                        {% set thumbnail = image_url.replace(".j", "t.j") %}
+                        {% set thumbnail2 = thumbnail.replace(".p", "t.p") %}
+                        <div class="column">
+                            <img class="demo cursor" src="{{ thumbnail2 }}" style="width:100%" onclick="currentSlide({{ loop.index }})">
+                        </div>                  
+                    {% endfor %}
                 </div>
             </div>
             <!-- <img src="/static/maps/{{ location }}" height="300" width="auto" /> This is for maps-->
             <p>{{ plant["description"] }}</p>
             <!-- Ask if they have the right plant before allowing them to input data -->
+            <h4>All locations for <i>{{ plant["scientific_name"] }}</i> </h4>
+                {% set plant_locations = plant["plant_id"].split(",") %}
+                {% for plant_id in plant_locations %}
+                    <img src="/static/locations/{{ plant_id }}.jpg" style="width:100%"  <!--onclick zoomtate that shit-->
+                {% endfor %}
+            <br>
+            <br>
+            <h2>Data entry form</h2>
             <form action="/species" method="post">
                 <input type="hidden" value="{{ plant["plant_id"] }}" name="plant_id" />
                 <label>Location
                   <select id="location" name="location" label="Location">
                       {% for location in plant["location"].split(",") %}
-                          <option value="{{location}}">{{location}}</option>
+                          <option value="{{ location }}">{{ location }}</option>
                       {% endfor %}
                   </select>
                 </label>
@@ -66,6 +72,7 @@
                 <br>
                 <label>Flowering stage
                   <select id="flowering stage" name="flowering_stage">
+                    <option value="Not applicable">Not applicable</option>
                     <option value="Not flowering">Not flowering</option>
                     <option value="Sepals closed">Sepals closed</option>
                     <option value="Petals closed">Petals closed</option>
@@ -77,6 +84,7 @@
                 <br>
                 <label>Number of inflorescences
                   <select id="number of inflorescences" name="number_of_inflorescences">
+                    <option value="Not applicable">Not applicable</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -90,6 +98,7 @@
                 <br>
                 <label>Number of flowers
                   <select id="number of flowers" name="number_of_flowers">
+                    <option value="Not applicable">Not applicable</option>                    
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -103,7 +112,8 @@
                 <br>
                 <label>Fruiting stage
                   <select id="fruiting stage" name="fruiting_stage">
-                    <option value="Something">Something</option>
+                    <option value="Not applicable">Not applicable</option>                    
+                    <option value="Something">Not fruiting</option>
                     <option value="Something else">Something else</option>
                   </select>
                 </label>
@@ -111,6 +121,7 @@
                 <br>
                 <label>Number of infructescences
                   <select id="number of infructescences" name="number_of_infructescences">
+                    <option value="Not applicable">Not applicable</option>                    
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -124,6 +135,7 @@
                 <br>
                 <label>Number of fruits
                   <select id="number of fruits" name="number_of_fruits">
+                    <option value="Not applicable">Not applicable</option>                    
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
