@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data entry</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌴</text></svg>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <link rel="stylesheet" href="/static/plants.css">
 </head>
@@ -25,7 +26,7 @@
                 <br>
                 <small>{{ plant["common_name"] }}</small>
             </h2>
-            <div class="gallery">        
+            <div class="gallery">
                 {% set plant_images = plant["image"].split(",") %}
                 {% set num_images = plant_images|length %}
                 {% for image_url in plant_images %}
@@ -34,17 +35,17 @@
                         <img src="{{ image_url }}">
                   </div>
                 {% endfor %}
-              
+
                 <a class="prev" onclick="plusSlides(-1)">❮</a>
                 <a class="next" onclick="plusSlides(1)">❯</a>
-                
-                <div class="row"> 
+
+                <div class="row">
                     {% for image_url in plant_images %}
                         {% set thumbnail = image_url.replace(".j", "t.j") %}
                         {% set thumbnail2 = thumbnail.replace(".p", "t.p") %}
                         <div class="column">
                             <img class="demo cursor" src="{{ thumbnail2 }}" style="width:100%" onclick="currentSlide({{ loop.index }})">
-                        </div>                  
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -98,7 +99,7 @@
                 <br>
                 <label>Number of flowers
                   <select id="number of flowers" name="number_of_flowers">
-                    <option value="Not applicable">Not applicable</option>                    
+                    <option value="Not applicable">Not applicable</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -112,7 +113,7 @@
                 <br>
                 <label>Fruiting stage
                   <select id="fruiting stage" name="fruiting_stage">
-                    <option value="Not applicable">Not applicable</option>                    
+                    <option value="Not applicable">Not applicable</option>
                     <option value="Something">Not fruiting</option>
                     <option value="Something else">Something else</option>
                   </select>
@@ -121,7 +122,7 @@
                 <br>
                 <label>Number of infructescences
                   <select id="number of infructescences" name="number_of_infructescences">
-                    <option value="Not applicable">Not applicable</option>                    
+                    <option value="Not applicable">Not applicable</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -135,7 +136,7 @@
                 <br>
                 <label>Number of fruits
                   <select id="number of fruits" name="number_of_fruits">
-                    <option value="Not applicable">Not applicable</option>                    
+                    <option value="Not applicable">Not applicable</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>

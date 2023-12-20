@@ -1,9 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
+from dotenv import load_dotenv
 from supabase import create_client, Client
 import os
 
+load_dotenv()
 url: str = os.environ.get("API_URL")
 key: str = os.environ.get("API_SECRET")
 supabase: Client = create_client(url, key)
@@ -93,4 +95,4 @@ def noplants(error):
   return render_template('noplants.html'), 404
 
 
-app.run(host="0.0.0.0", debug=True)
+# app.run(host="0.0.0.0", port=os.environ.get("PORT") or 5000, debug=os.environ.get("DEBUG") == "true" or False)

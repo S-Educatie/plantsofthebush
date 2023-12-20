@@ -26,7 +26,7 @@ body{
 }
 
 .main{
-  background: url("/static/backgrounds/bush_background_02.jpg") no-repeat center center;
+  background: url("https://i.imgur.com/SyGTt1R.jpeg") no-repeat center center;
   background-size: cover;
   opacity: 1;
 }
@@ -77,7 +77,7 @@ body{
 }
 
 .main .container input{
-  color: #000000; 
+  color: #000000;
   width: 50%;
   text-align: center;
   display: block;
@@ -197,7 +197,7 @@ body{
   max-width: 80%;
   object-fit: cover;
   }
-  
+
   .main .container .gallery .row .column .demo{
   opacity: 0.6;
   height: 65px;
