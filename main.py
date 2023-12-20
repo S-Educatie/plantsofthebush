@@ -1,9 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
+from dotenv import load_dotenv
 from supabase import create_client, Client
 import os
 
+load_dotenv()
 url: str = os.environ.get("API_URL")
 key: str = os.environ.get("API_SECRET")
 supabase: Client = create_client(url, key)
