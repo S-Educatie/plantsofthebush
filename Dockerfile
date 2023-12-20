@@ -2,8 +2,10 @@ FROM python:3-alpine
 
 WORKDIR /app
 
+RUN pip install Flask supabase python-dotenv flask_httpauth gunicorn
+
 COPY . /app
 
-RUN pip install Flask supabase python-dotenv flask_httpauth
+ENV FLASK_ENV=production
 
-CMD cd /app && python main.py
+CMD cd /app && gunicorn main:app

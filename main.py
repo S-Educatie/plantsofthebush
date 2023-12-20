@@ -95,4 +95,4 @@ def noplants(error):
   return render_template('noplants.html'), 404
 
 
-app.run(host="0.0.0.0", debug=True)
+# app.run(host="0.0.0.0", port=os.environ.get("PORT") or 5000, debug=os.environ.get("DEBUG") == "true" or False)
